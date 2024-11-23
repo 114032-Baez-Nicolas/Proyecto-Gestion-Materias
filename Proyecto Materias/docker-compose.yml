@@ -1,0 +1,23 @@
+services:
+  java_app:
+    container_name: java_app
+    build: .
+    ports:
+      - "8081:8081"
+    depends_on:
+      - javaapi
+    networks:
+      - my_network
+
+  javaapi:
+    container_name: javaapi
+    image: gabrielarriola/api-examen
+    platform: linux/amd64
+    ports:
+      - "8080:8080"
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge

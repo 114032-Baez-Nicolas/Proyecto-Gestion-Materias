@@ -1,0 +1,53 @@
+app:
+  name: 'lciii-scaffolding'
+  desc: 'LCII Initial Scaffolding'
+  version: '0.0.1-SNAPSHOT'
+  url: http://localhost:8081
+  dev-name: None
+  dev-email: none@none.com
+
+server:
+  port: 8081
+
+springdoc:
+  packages-to-scan: ar.edu.utn.frc.tup.lciii.controllers
+  show-actuator: true
+  swagger-ui:
+    disable-swagger-default-url: true
+    path: /swagger-ui.html
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    defer-datasource-initialization: true
+    open-in-view: false
+
+logging:
+  level:
+    root: DEBUG
+    org.springframework: DEBUG
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      alumnosService:
+        sliding-window-size: 10
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 5s
+        permitted-number-of-calls-in-half-open-state: 3
+        minimum-number-of-calls: 5
+        automatic-transition-from-open-to-half-open-enabled: true
+      docentesService:
+        sliding-window-size: 10
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 5s
+        permitted-number-of-calls-in-half-open-state: 3
+        minimum-number-of-calls: 5
+        automatic-transition-from-open-to-half-open-enabled: true
